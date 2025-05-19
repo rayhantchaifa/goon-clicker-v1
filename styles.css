@@ -1,27 +1,53 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: linear-gradient(to right, #ff8c00, #ff1a1a);
-    color: white;
-}
+let iceCreams = localStorage.getItem("iceCreams") ? parseInt(localStorage.getItem("iceCreams")) : 0;
+let goonDollars = localStorage.getItem("goonDollars") ? parseInt(localStorage.getItem("goonDollars")) : 0;
+let multiplier = localStorage.getItem("multiplier") ? parseFloat(localStorage.getItem("multiplier")) : 1;
+let username = localStorage.getItem("username") || prompt("Enter your name:");
+localStorage.setItem("username", username);
 
-.container {
-    margin: auto;
-    max-width: 500px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 15px;
-}
+const phrases = [
+    `Keep gooning, ${username}!`,
+    `${username} is unstoppable!`,
+    `Click harder, ${username}!`,
+    `You're a gooning machine, ${username}!`
+];
 
-button {
-    font-size: 18px;
-    padding: 10px;
-    background: yellow;
-    border: none;
-    cursor: pointer;
-    margin: 5px;
-}
+document.getElementById("clicker").addEventListener("click", function() {
+    iceCreams += 1 * multiplier;
+    document.getElementById("iceCreams").textContent = iceCreams;
+    document.getElementById("phrase").textContent = phrases[Math.floor(Math.random() * phrases.length)];
+    localStorage.setItem("iceCreams", iceCreams);
+});
 
-button:hover {
-    background: gold;
-}
+document.getElementById("sell").addEventListener("click", function() {
+    goonDollars += iceCreams;
+    iceCreams = 0;
+    document.getElementById("goonDollars").textContent = goonDollars;
+    document.getElementById("iceCreams").textContent = iceCreams;
+    localStorage.setItem("goonDollars", goonDollars);
+    localStorage.setItem("iceCreams", iceCreams);
+});
+
+document.getElementById("upgrade").addEventListener("click", function() {
+    if (goonDollars >= 10) {
+        multiplier += 1;
+        goonDollars -= 10;
+        document.getElementById("multiplier").textContent = multiplier + "x";
+        document.getElementById("goonDollars").textContent = goonDollars;
+        localStorage.setItem("multiplier", multiplier);
+        localStorage.setItem("goonDollars", goonDollars);
+    }
+});
+
+document.getElementById("rebirth").addEventListener("click", function() {
+    if (goonDollars >= 100) {
+        multiplier *= 2;
+        goonDollars = 0;
+        iceCreams = 0;
+        localStorage.setItem("multiplier", multiplier);
+        localStorage.setItem("goonDollars", goonDollars);
+        localStorage.setItem("iceCreams", iceCreams);
+        document.getElementById("multiplier").textContent = multiplier + "x";
+        document.getElementById("goonDollars").textContent = goonDollars;
+        document.getElementById("iceCreams").textContent = iceCreams;
+    }
+});
