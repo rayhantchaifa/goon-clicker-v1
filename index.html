@@ -8,16 +8,26 @@
 </head>
 <body>
     <div class="container">
-        <h1>Goon Clicker v1</h1>
-        <p id="phrase">Click to start!</p>
-        <button id="clicker">Make Ice Cream 🍦</button>
+        <h1>🍦 Goon Clicker v1 🍦</h1>
+        <p id="phrase">Click to make ice cream!</p>
+        
+        <button id="clicker">
+            <img src="icecream.png" alt="Ice Cream" class="icon"> Click Me!
+        </button>
+        
         <p>Ice Creams: <span id="iceCreams">0</span></p>
         <button id="sell">Sell Ice Creams for GoonDollars 💰</button>
         <p>GoonDollars: <span id="goonDollars">0</span></p>
 
-        <h2>Shop</h2>
+        <h2>🏆 Leaderboard 🏆</h2>
+        <p>Best Player: <span id="bestPlayer">None</span></p>
+
+        <h2>🛒 Shop 🛒</h2>
         <button id="upgrade">Buy Upgrade (+1 per click) - Cost: 10 GoonDollars</button>
         <button id="rebirth">Rebirth (Reset & Multiply Earnings) - Cost: 100 GoonDollars</button>
+
+        <h2>🏅 Achievements 🏅</h2>
+        <p id="achievement">Unlock achievements as you play!</p>
     </div>
 
     <script src="script.js"></script>
