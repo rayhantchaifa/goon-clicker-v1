@@ -3,31 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Goon Clicker v1</title>
+    <title>Goon Clicker v2</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>🍦 Goon Clicker v1 🍦</h1>
-        <p id="phrase">Click to make ice cream!</p>
-        
-        <button id="clicker">
-            <img src="icecream.png" alt="Ice Cream" class="icon"> Click Me!
-        </button>
-        
-        <p>Ice Creams: <span id="iceCreams">0</span></p>
-        <button id="sell">Sell Ice Creams for GoonDollars 💰</button>
-        <p>GoonDollars: <span id="goonDollars">0</span></p>
+        <h1>🍦 Goon Clicker v2 🍦</h1>
 
-        <h2>🏆 Leaderboard 🏆</h2>
-        <p>Best Player: <span id="bestPlayer">None</span></p>
+        <p id="phrase">Enter your name to start:</p>
+        <input type="text" id="usernameInput" placeholder="Your Name">
+        <button id="startGame">Start</button>
 
-        <h2>🛒 Shop 🛒</h2>
-        <button id="upgrade">Buy Upgrade (+1 per click) - Cost: 10 GoonDollars</button>
-        <button id="rebirth">Rebirth (Reset & Multiply Earnings) - Cost: 100 GoonDollars</button>
+        <div id="gameContent" style="display:none;">
+            <button id="clicker">
+                <img src="icecream.png" alt="Ice Cream" class="icon"> Make Ice Cream!
+            </button>
 
-        <h2>🏅 Achievements 🏅</h2>
-        <p id="achievement">Unlock achievements as you play!</p>
+            <p>Ice Creams: <span id="iceCreams">0</span></p>
+            <button id="sell">Sell Ice Creams for GoonDollars 💰</button>
+            <p>GoonDollars: <span id="goonDollars">0</span></p>
+
+            <h2>🏆 Leaderboard 🏆</h2>
+            <p>Best Player: <span id="bestPlayer">None</span></p>
+
+            <h2>🛒 Shop 🛒</h2>
+            <button id="upgrade">Upgrade (+1 per click) - Cost: <span id="upgradeCost">10</span> GoonDollars</button>
+            <button id="rebirth">Rebirth (Boost Earnings) - Cost: 100 GoonDollars</button>
+
+            <h2>🏅 Achievements 🏅</h2>
+            <p id="achievement">Unlock meme-tier goals!</p>
+
+            <button id="reset">Reset Everything 🔄</button>
+
+            <div id="popupContainer" style="display:none;">
+                <p id="popupMessage"></p>
+                <button id="popupYes">Yes</button>
+                <button id="popupNo">No</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
