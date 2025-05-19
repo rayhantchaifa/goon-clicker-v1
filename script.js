@@ -1,34 +1,65 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: linear-gradient(to right, #ff0080, #8000ff);
-    color: white;
-}
+let iceCreams = localStorage.getItem("iceCreams") ? parseInt(localStorage.getItem("iceCreams")) : 0;
+let goonDollars = localStorage.getItem("goonDollars") ? parseInt(localStorage.getItem("goonDollars")) : 0;
+let multiplier = localStorage.getItem("multiplier") ? parseFloat(localStorage.getItem("multiplier")) : 1;
+let bestPlayer = localStorage.getItem("bestPlayer") || "None";
+let username = localStorage.getItem("username") || prompt("Enter your name:");
+localStorage.setItem("username", username);
 
-.container {
-    margin: auto;
-    max-width: 500px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 15px;
-    box-shadow: 0px 0px 10px #ff0080;
-}
+const phrases = [
+    `Keep gooning, ${username}!`,
+    `${username} is unstoppable!`,
+    `Click harder, ${username}!`,
+    `You're a gooning machine, ${username}!`
+];
 
-button {
-    font-size: 18px;
-    padding: 12px;
-    background: yellow;
-    border: 3px solid black;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: 0.2s;
-}
+const clickSound = new Audio("click.mp3");
 
-button:hover {
-    background: gold;
-    transform: scale(1.1);
-}
+document.getElementById("clicker").addEventListener("click", function() {
+    iceCreams += 1 * multiplier;
+    document.getElementById("iceCreams").textContent = iceCreams;
+    document.getElementById("phrase").textContent = phrases[Math.floor(Math.random() * phrases.length)];
+    localStorage.setItem("iceCreams", iceCreams);
+    clickSound.play();
+});
 
-h1 {
-    text-shadow: 2px 2px 5px black;
-}
+document.getElementById("sell").addEventListener("click", function() {
+    goonDollars += iceCreams;
+    iceCreams = 0;
+    document.getElementById("goonDollars").textContent = goonDollars;
+    document.getElementById("iceCreams").textContent = iceCreams;
+    localStorage.setItem("goonDollars", goonDollars);
+    localStorage.setItem("iceCreams", iceCreams);
+    
+    if (goonDollars > parseInt(localStorage.getItem("bestScore") || 0)) {
+        localStorage.setItem("bestScore", goonDollars);
+        bestPlayer = username;
+        localStorage.setItem("bestPlayer", username);
+        document.getElementById("bestPlayer").textContent = username;
+    }
+});
+
+document.getElementById("upgrade").addEventListener("click", function() {
+    if (goonDollars >= 10) {
+        multiplier += 1;
+        goonDollars -= 10;
+        document.getElementById("multiplier").textContent = multiplier + "x";
+        document.getElementById("goonDollars").textContent = goonDollars;
+        localStorage.setItem("multiplier", multiplier);
+        localStorage.setItem("goonDollars", goonDollars);
+    }
+});
+
+document.getElementById("rebirth").addEventListener("click", function() {
+    if (goonDollars >= 100) {
+        multiplier *= 2;
+        goonDollars = 0;
+        iceCreams = 0;
+        localStorage.setItem("multiplier", multiplier);
+        localStorage.setItem("goonDollars", goonDollars);
+        localStorage.setItem("iceCreams", iceCreams);
+        document.getElementById("multiplier").textContent = multiplier + "x";
+        document.getElementById("goonDollars").textContent = goonDollars;
+        document.getElementById("iceCreams").textContent = iceCreams;
+        document.getElementById("achievement").textContent = "🏅 REBIRTH SUCCESS 🏅";
+    }
+});
