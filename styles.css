@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #ff8c00, #ff1a1a);
+    color: white;
+}
+
+.container {
+    margin: auto;
+    max-width: 500px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+}
+
+button {
+    font-size: 18px;
+    padding: 10px;
+    background: yellow;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background: gold;
+}
