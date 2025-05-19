@@ -1,25 +1,19 @@
-let iceCreams = localStorage.getItem("iceCreams") ? parseInt(localStorage.getItem("iceCreams")) : 0;
-let goonDollars = localStorage.getItem("goonDollars") ? parseInt(localStorage.getItem("goonDollars")) : 0;
-let multiplier = localStorage.getItem("multiplier") ? parseFloat(localStorage.getItem("multiplier")) : 1;
+let iceCreams = 0;
+let goonDollars = 0;
+let multiplier = 1;
 let bestPlayer = localStorage.getItem("bestPlayer") || "None";
-let username = localStorage.getItem("username") || prompt("Enter your name:");
-localStorage.setItem("username", username);
+let upgradeCost = 10;
+let username = "";
 
-const phrases = [
-    `Keep gooning, ${username}!`,
-    `${username} is unstoppable!`,
-    `Click harder, ${username}!`,
-    `You're a gooning machine, ${username}!`
-];
-
-const clickSound = new Audio("click.mp3");
+document.getElementById("startGame").addEventListener("click", function() {
+    username = document.getElementById("usernameInput").value || "Player";
+    document.getElementById("gameContent").style.display = "block";
+    document.getElementById("phrase").textContent = `Let's go, ${username}!`;
+});
 
 document.getElementById("clicker").addEventListener("click", function() {
     iceCreams += 1 * multiplier;
     document.getElementById("iceCreams").textContent = iceCreams;
-    document.getElementById("phrase").textContent = phrases[Math.floor(Math.random() * phrases.length)];
-    localStorage.setItem("iceCreams", iceCreams);
-    clickSound.play();
 });
 
 document.getElementById("sell").addEventListener("click", function() {
@@ -27,39 +21,42 @@ document.getElementById("sell").addEventListener("click", function() {
     iceCreams = 0;
     document.getElementById("goonDollars").textContent = goonDollars;
     document.getElementById("iceCreams").textContent = iceCreams;
-    localStorage.setItem("goonDollars", goonDollars);
-    localStorage.setItem("iceCreams", iceCreams);
-    
-    if (goonDollars > parseInt(localStorage.getItem("bestScore") || 0)) {
-        localStorage.setItem("bestScore", goonDollars);
-        bestPlayer = username;
-        localStorage.setItem("bestPlayer", username);
-        document.getElementById("bestPlayer").textContent = username;
-    }
 });
 
 document.getElementById("upgrade").addEventListener("click", function() {
-    if (goonDollars >= 10) {
+    if (goonDollars >= upgradeCost) {
         multiplier += 1;
-        goonDollars -= 10;
+        goonDollars -= upgradeCost;
+        upgradeCost = Math.ceil(upgradeCost * 1.5);
         document.getElementById("multiplier").textContent = multiplier + "x";
         document.getElementById("goonDollars").textContent = goonDollars;
-        localStorage.setItem("multiplier", multiplier);
-        localStorage.setItem("goonDollars", goonDollars);
+        document.getElementById("upgradeCost").textContent = upgradeCost;
     }
 });
 
-document.getElementById("rebirth").addEventListener("click", function() {
-    if (goonDollars >= 100) {
-        multiplier *= 2;
-        goonDollars = 0;
-        iceCreams = 0;
-        localStorage.setItem("multiplier", multiplier);
-        localStorage.setItem("goonDollars", goonDollars);
-        localStorage.setItem("iceCreams", iceCreams);
-        document.getElementById("multiplier").textContent = multiplier + "x";
-        document.getElementById("goonDollars").textContent = goonDollars;
-        document.getElementById("iceCreams").textContent = iceCreams;
-        document.getElementById("achievement").textContent = "🏅 REBIRTH SUCCESS 🏅";
+document.getElementById("reset").addEventListener("click", function() {
+    iceCreams = 0;
+    goonDollars = 0;
+    multiplier = 1;
+    upgradeCost = 10;
+    document.getElementById("iceCreams").textContent = iceCreams;
+    document.getElementById("goonDollars").textContent = goonDollars;
+    document.getElementById("multiplier").textContent = multiplier + "x";
+    document.getElementById("upgradeCost").textContent = upgradeCost;
+});
+
+setInterval(() => {
+    if (Math.random() < 0.2) {
+        document.getElementById("popupContainer").style.display = "block";
+        document.getElementById("popupMessage").textContent = "DO YOU LIKE ICE CREAM?";
     }
+}, 10000);
+
+document.getElementById("popupYes").addEventListener("click", function() {
+    goonDollars += 10;
+    document.getElementById("popupContainer").style.display = "none";
+});
+
+document.getElementById("popupNo").addEventListener("click", function() {
+    document.getElementById("popupContainer").style.display = "none";
 });
