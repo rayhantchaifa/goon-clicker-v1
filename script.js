@@ -1,33 +1,34 @@
-let points = localStorage.getItem("points") ? parseInt(localStorage.getItem("points")) : 0;
-let multiplier = localStorage.getItem("multiplier") ? parseFloat(localStorage.getItem("multiplier")) : 1;
-let username = localStorage.getItem("username") || prompt("Enter your name:");
-localStorage.setItem("username", username);
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #ff0080, #8000ff);
+    color: white;
+}
 
-const phrases = [
-    `Keep gooning, ${username}!`,
-    `${username} is unstoppable!`,
-    `Click harder, ${username}!`,
-    `You're a gooning machine, ${username}!`
-];
+.container {
+    margin: auto;
+    max-width: 500px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px #ff0080;
+}
 
-document.getElementById("clicker").addEventListener("click", function() {
-    points += 1 * multiplier;
-    document.getElementById("points").textContent = points;
-    document.getElementById("phrase").textContent = phrases[Math.floor(Math.random() * phrases.length)];
-    localStorage.setItem("points", points);
-});
+button {
+    font-size: 18px;
+    padding: 12px;
+    background: yellow;
+    border: 3px solid black;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.2s;
+}
 
-document.getElementById("upgrade").addEventListener("click", function() {
-    multiplier += 1;
-    document.getElementById("multiplier").textContent = multiplier + "x";
-    localStorage.setItem("multiplier", multiplier);
-});
+button:hover {
+    background: gold;
+    transform: scale(1.1);
+}
 
-document.getElementById("rebirth").addEventListener("click", function() {
-    points = 0;
-    multiplier = 1;
-    localStorage.setItem("points", points);
-    localStorage.setItem("multiplier", multiplier);
-    document.getElementById("points").textContent = points;
-    document.getElementById("multiplier").textContent = multiplier + "x";
-});
+h1 {
+    text-shadow: 2px 2px 5px black;
+}
